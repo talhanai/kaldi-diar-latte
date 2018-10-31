@@ -24,19 +24,22 @@ steps/compute_cmvn_stats.sh $data $data/log $data/data || exit 1;
 ```
 
 The `data-fbank/test` directory will contain the files: 
-- `wav.scp`, 
-- `text`, 
-- `utt2spk`, 
-- `spk2utt`,
+- `wav.scp` 
+- `text`
+- `utt2spk` 
+- `spk2utt`
+- `segments`
+- `stm`
+- `glm`
 
 that you must generate in a (kaldi pre-defined) format. Details on these files can be [found here](http://kaldi-asr.org/doc/data_prep.html). They should look like this:
 ```
 $ data-fbank/test > head *
 
-==> spk2utt <==
-SID-0001 SID-0001
-SID-0002 SID-0002
-SID-0003 SID-0003
+==> wav.scp <==
+SID-0001 DVR_226ABCDEF_DATEXY_TID1.wav
+SID-0002 DVR_226ABCDEF_DATEXY_TID2.wav
+SID-0003 DVR_226ABCDEF_DATEXY_TID3.wav
 
 ==> text <==
 SID-0001 <empty>
@@ -48,10 +51,26 @@ SID-0001 SID-0001
 SID-0002 SID-0002
 SID-0003 SID-0003
 
-==> wav.scp <==
-SID-0001 DVR_226ABCDEF_DATEXY_TID1.wav
-SID-0002 DVR_226ABCDEF_DATEXY_TID2.wav
-SID-0003 DVR_226ABCDEF_DATEXY_TID3.wav
+==> spk2utt <==
+SID-0001 SID-0001
+SID-0002 SID-0002
+SID-0003 SID-0003
+
+==> segments <==
+SID-0001-00 SID-0001 0 300
+SID-0001-01 SID-0001 300 600
+SID-0001-02 SID-0001 600 900
+SID-0001-03 SID-0001 900 1200
+
+==> stm <==
+SID-0001-00 A SID-0001 0 300 <empty>
+SID-0001-01 A SID-0001 300 600 <empty>
+SID-0001-02 A SID-0001 600 900 <empty>
+SID-0001-03 A SID-0001 900 1200 <empty>
+
+==> glm <==
+;; empty.glm 
+  [FAKE]     =>  %HESITATION     / [ ] __ [ ] ;; hesitation token
 
 ```
 
