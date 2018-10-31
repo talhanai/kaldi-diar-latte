@@ -6,6 +6,8 @@ From here: http://kaldi-asr.org/
 
 If you are going to use kaldi with a GPU (to train DNN acoustic models for example), then make sure to install kaldi with `--use-cuda=yes (default)`. The following steps, except for building acoustic models will not require a GPU.
 
+Make sure you `source path.sh; source cmd.sh` before running these scripts.
+
 ## 2. Extract features
 Extract 40-mel filterbank (+ 3 pitch) features from audio, and normalize (CMVN - cepstral mean variance normalize).
 
@@ -20,7 +22,8 @@ The `data-fbank/test` directory will contain the files:
 - `wav.scp`, 
 - `text`, 
 - `utt2spk`, 
-- and `spk2utt` 
+- `spk2utt`,
+
 that you must generate in a (kaldi pre-defined) format. Details on these files can be [found here](http://kaldi-asr.org/doc/data_prep.html). They should look like this:
 ```
 $ data-fbank/test > head *
@@ -47,7 +50,11 @@ SID-0003 DVR_226ABCDEF_DATEXY_TID3.wav
 
 ```
 
-Once you generate features using the `steps/make_fbank_pitch.sh` and `steps/compute_cmvn_stats.sh` you will have the following files in `data-fbank/test`: `feats.scp` and `cmvn.scp`. These files are pointers to the location of the features (`*.ark` files)
+Once you generate features using the `steps/make_fbank_pitch.sh` and `steps/compute_cmvn_stats.sh` you will have the following files in `data-fbank/test`: 
+- `feats.scp`
+- `cmvn.scp` 
+
+These files are pointers to the location of the features (`*.ark` files)
 
 ```
 $ data-fbank/test > head *
