@@ -69,7 +69,9 @@ https://groups.csail.mit.edu/sls/publications/2018/Alhanai_NAACL18.pdf
 @inproceedings{al2018role,
   title={Role-specific Language Models for Processing Recorded Neuropsychological Exams},
   author={Al Hanai, Tuka and Au, Rhoda and Glass, James},
-  booktitle={Proceedings of the 2018 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 2 (Short Papers)},
+  booktitle={Proceedings of the 2018 
+  Conference of the North American Chapter of the Association for Computational Linguistics: 
+  Human Language Technologies, Volume 2 (Short Papers)},
   volume={2},
   pages={746--752},
   year={2018}
