@@ -64,7 +64,6 @@ I used one of Kaldi's standard recipes to train a DNN acoustic model.
 - NOTE: My experiments were with audio sampled at 8,000Hz, the tedlium corpus files are 16,000Hz so I downsampled them first before building the acoustic model (with `run.sh`).
 
 ## Reference
-https://groups.csail.mit.edu/sls/publications/2018/Alhanai_NAACL18.pdf
 ```
 @inproceedings{al2018role,
   title={Role-specific Language Models for Processing Recorded Neuropsychological Exams},
@@ -77,3 +76,5 @@ https://groups.csail.mit.edu/sls/publications/2018/Alhanai_NAACL18.pdf
   year={2018}
 }
 ```
+The pipeline above was used in this paper: https://groups.csail.mit.edu/sls/publications/2018/Alhanai_NAACL18.pdf
+
