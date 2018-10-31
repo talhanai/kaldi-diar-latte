@@ -299,8 +299,18 @@ SPEAKER SID-0001 1 0006.00 005.00 <NA> <NA> SID-0001-P <NA>
 SPEAKER SID-0001 1 0011.00 001.00 <NA> <NA> SID-0001-P <NA>
 SPEAKER SID-0001 1 0012.00 003.00 <NA> <NA> SID-0001-T <NA>
 ```
+The columns are as follows:
+- SPEAKER
+- FILE-ID
+- CHANNEL # (just set to 1)
+- START TIME OF SEGMENT (in seconds)
+- DURATION OF SEGMENT (in seconds)
+- <NA> column
+- <NA> column
+- FILE-ID-SPEAKERID (T is Tester, P is Patient
+- <NA> column
 
-Then run the following tool to evaluate DER.
+Next run the following tool to evaluate DER.
 ```
 $> perl md-eval-v21.pl -m -afc -c 0.25 -r reference.rttm -s hypothesis.rttm
 ```
