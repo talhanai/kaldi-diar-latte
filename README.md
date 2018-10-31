@@ -80,7 +80,7 @@ steps/nnet/decode.sh --nj $nj \
         $tedliumDir/exp/tri3/graph $test $dir/decode_test-fhs_it4 || exit 1
 ```
 
-## Reference
+# Reference
 ```
 @inproceedings{al2018role,
   title={Role-specific Language Models for Processing Recorded Neuropsychological Exams},
