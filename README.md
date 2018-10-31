@@ -109,15 +109,15 @@ You might want to utilize your own text to build a language model (i.e. pattern 
 
 - Install the SRILM toolkit: http://www.speech.sri.com/projects/srilm/download.html
 - Create  a `lang/` directory to deposit your language model.
+- Make sure all punctuation is removed from your text file (`text.txt`).
+- Make sure to convert the text into lower case.
 - Run the following command to generate your language model that kaldi can later use in its decoder (it is a tri-gram model with Knesser-Ney discounting).
 
 ```
 $> ngram-count -text text.txt -lm lang/text.txt.lm.gz -kndiscount
 ```
-- Make sure all punctuation is removed.
-- Make sure to convert text into lower case.
 
-Specific to the task of text-based speaker diarization, you will need to modify the words in the text to label who said what. A phrase like this:
+Specific to the task of text-based speaker diarization, you will need to modify the words in the `text.txt` to label who said what (before you run `ngram-count` to build your language model). A phrase like this:
 
 ```
 what happened to anna thomson she was robbed
