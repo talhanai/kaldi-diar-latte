@@ -4,7 +4,7 @@ This repo lists steps to perform diarization of audio with the kaldi toolkit. Di
 ## 1. Install Kaldi toolkit 
 From here: http://kaldi-asr.org/
 
-If you are going to use kaldi with a GPU (to train DNN acoustic models for example), then make sure to install kaldi with `--use-cuda=yes (default)`.
+If you are going to use kaldi with a GPU (to train DNN acoustic models for example), then make sure to install kaldi with `--use-cuda=yes (default)`. The following steps, except for building acoustic models will not require a GPU.
 
 ## 2. Extract features
 Extract 40-mel filterbank (+ 3 pitch) features from audio, and normalize (CMVN - cepstral mean variance normalize).
