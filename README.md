@@ -58,4 +58,6 @@ zoom
 - Make sure the list of words match what is contained in the text of the language model, otherwise Kaldi will complain when it combines the data. It can't understand that there are words in the language model that don't have pronunciations.
 
 ## 6. Build your own acoustic model.
-I used one of Kaldi's standard recipes to train a DNN acoustic model. Specifically, 
+I used one of Kaldi's standard recipes to train a DNN acoustic model. 
+- Specifically: https://github.com/kaldi-asr/kaldi/tree/master/egs/tedlium/s5
+- Make sure to run `run.sh` all the way upto and including `local/nnet/run_dnn.sh`
