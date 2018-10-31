@@ -133,13 +133,13 @@ You might want to utilize your own text to build a language model (i.e. pattern 
 
 - Install the SRILM toolkit: http://www.speech.sri.com/projects/srilm/download.html
 - Create  a `lang/` directory to deposit your language model.
-- Make sure all punctuation is removed from your text file (`text.txt`).
+- Make sure all punctuation is removed from your text file (`train.txt`).
 - Make sure to convert the text into lower case.
 
 Run the following command to generate your language model that kaldi can later use in its decoder (it is a tri-gram model with Knesser-Ney discounting).
 
 ```
-$> ngram-count -text text.txt -lm lang/text.txt.lm.gz -kndiscount
+$> ngram-count -text train.txt -lm lang/train.txt.lm.gz -kndiscount
 ```
 
 Specific to the task of text-based speaker diarization, you will need to modify the words in the `train.txt` to label who said what (before you run `ngram-count` to build your language model). A phrase like this:
@@ -222,7 +222,7 @@ I used one of Kaldi's standard recipes to train a DNN acoustic model.
  #!/bin/bash
  exp=$mykaldi/egs/tedlium/s5/exp/tri3
  utils/prepare_lang.sh dict "<unk>" lang lang
- format_lm.sh lang lang/text.txt.lm.gz dict/lexicon.txt lang
+ format_lm.sh lang lang/train.txt.lm.gz dict/lexicon.txt lang
  utils/mkgraph.sh lang $exp $exp/graph_fhs_PT
  ```
 
