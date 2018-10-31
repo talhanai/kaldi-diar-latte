@@ -17,7 +17,9 @@ steps/compute_cmvn_stats.sh $test $test/log $test/data || exit 1;
 I worked with 8,000Hz single-channel .wav files. You can convert them like this.
 ```
 $> ffmpeg -n -i $inputfilename -ar 8000 -ac 1 $outputfilename.wav 
-or
+
+    or
+
 $> sox $inputfilename $outputfilename.wav channels 1 rate 8k
 ```
 
