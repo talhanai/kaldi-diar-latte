@@ -115,7 +115,7 @@ This all assumes you know who said what in advance. This allows for the language
 
 ## 4. Build your own lexicon.
 
-1. Extract your list of words (the same words that is in your `text.txt` used in your language model).
+Extract your list of words (the same words that is in your `text.txt` used in your language model).
 ```
 $> sed 's/ /\/g text.txt | sed '/^$/d' | sort | uniq > vocab.txt # prints your vocabulary to file
 $> cat vocab.txt # take a look at the list of words
@@ -129,9 +129,7 @@ zoo
 zoom
   ```
 
-2. Generate pronunciations from this tool: http://www.speech.cs.cmu.edu/tools/lextool.html
-
-The results will look something like this, which will be your `lexicon.txt`:
+Generate pronunciations from this tool: http://www.speech.cs.cmu.edu/tools/lextool.html . The results will look something like this:
 ```
 abduct AE B D AH K T
 abducted AE B D AH K T IH D
@@ -142,7 +140,7 @@ NOTE: Make sure the list of words match what is contained in the text of the lan
 
 NOTE2: The lextool will append numbers to words with multiple pronunications (`hello HH EH L OW; hello(1) HH AH L OW`), remove the number(s) `(1)` because it will not match the word(s) in your language model causing problems for kaldi to compile the information. It will look like this: `hello HH EH L OW; hello HH AH L OW`
 
-You will need to append speaker tags to the words, so that it matches the vocabulary in your language model (or you could try and generate the lexicon with the speaker tags on the words, but make sure the _pronunciation_ does not include the speaker tags).
+You will need to append speaker tags to the words, so that it matches the vocabulary in your language model (or you could try and generate the lexicon with the speaker tags on the words, but make sure the _pronunciation_ does not include the speaker tags). This will be your `lexicon.txt`.
 
 ```
 abduct_P AE B D AH K T
