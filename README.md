@@ -87,7 +87,7 @@ steps/nnet/decode.sh --nj $nj \
   author={Al Hanai, Tuka and Au, Rhoda and Glass, James},
   booktitle={Proceedings of the 2018 
   Conference of the North American Chapter of the Association for Computational Linguistics: 
-  Human Language Technologies, Volume 2 (Short Papers)},
+  Human Language Technologies, Volume 2 (Short Papers)}, 
   volume={2},
   pages={746--752},
   year={2018}
