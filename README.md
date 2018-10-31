@@ -29,8 +29,8 @@ $> ngram-count -text text.txt -lm text.txt.lm.gz -kndiscount
 
 Start with your list of words (the same words that is in your `text.txt` used in your language model):
 ```
-$> sed 's/ /\/g text.txt | sed '/^$/d' | sort | uniq > vocab.txt
-$> cat vocab.txt
+$> sed 's/ /\/g text.txt | sed '/^$/d' | sort | uniq > vocab.txt # prints your vocabulary to file
+$> cat vocab.txt # take a look at the list of words
 achilles
 acid
 acknowledge
