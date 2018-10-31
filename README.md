@@ -168,12 +168,14 @@ abducted_T AH B D AH K T IH D
 ```
 
 Now you will need to build your other lexicon related files and store them in a `dict/` directory. `dict/` will contain the files that define what the phonetic units are in the language and the relationships between them. These files are:
+
 -`extra_questions.txt` (should be empty)
 -`nonsilence_phones.txt` (contains the phonetic units for pronouncing words in your `lexicon.txt`) 
 -`optional_silence.txt`
 -`silence_phones.txt` (phonetic units that indicate silence, also found in `lexicon.txt`)
 
 which are provided in this repo (and match the entries of the TEDLIUM s5/ kaldi setep). You will need to add 
+
 - `lexicon.txt` 
 
 to the `dict/` directory. `lexiconp.txt` will be generated automatically (and contains a weighted lexicon which you don't have to worry about).
