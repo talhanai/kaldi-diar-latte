@@ -27,7 +27,7 @@ steps/nnet/decode.sh --nj $nj \
 
 ## 4. Build your language model.
 
-You might want to utilize your own text to build a language model (i.e. pattern of language word sequences) using your own text.
+You might want to utilize your own text to build a language model (i.e. pattern of language word sequences).
 
 - Install the SRILM toolkit: http://www.speech.sri.com/projects/srilm/download.html
 - Run the following command to generate your language model that kaldi can later use in its decoder.
