@@ -96,6 +96,22 @@ You might want to utilize your own text to build a language model (i.e. pattern 
 ```
 $> ngram-count -text text.txt -lm text.txt.lm.gz -kndiscount
 ```
+- Make sure all punctuation is removed.
+- Make sure to convert text into lower case.
+
+Specific to the task of text-based speaker diarization, you will need to modify the words in the text to label who said what. A phrase like this:
+```
+what happened to anna thomson_T she was robbed
+```
+
+will be formatted with tags `P` (Patient) and `T` (Tester) appended to the end of the word to mark who said what. 
+
+```
+what_T happened_T to_T anna_T thomson_T she_P was_P robbed_P
+```
+
+This all assumes you know who said what in advance. This allows for the language model to learn some statistics about word usage as a function of the speaker.
+
 
 ## 4. Build your own lexicon.
 
@@ -166,10 +182,10 @@ The text will be decoded like this:
 ```
 what_T happened_T to_T anna_T thomson_T she_P was_P robbed_P
 ```
-- To evaluate the accuracy of the transcription, you will need to remove the `_{P,T}` tags.
+- To evaluate the accuracy of the transcription, you will need to remove the `_{P,T}` tags (P = Patient, T = Tester).
 - To evaluate the accuracy of the diarization, you will need to remove the words and keep the `_{P,T}` tags.
 
-Specifically to kaldi, you will find the decoded information in a `ctm` file, which shows the hypothesized start and end time of each word (as well as the hypothesized speaker that said each word).
+Specifically to kaldi, you will find the decoded information in a `ctm` file, which shows the hypothesized start and end time of each word (as well as the hypothesized speaker (P or T) that said each word).
 
 ```
 $> head $dir/decode_test-fhs_PT_it4/score_10_0.0/ctm
