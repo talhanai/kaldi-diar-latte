@@ -61,3 +61,4 @@ zoom
 I used one of Kaldi's standard recipes to train a DNN acoustic model. 
 - Specifically: https://github.com/kaldi-asr/kaldi/tree/master/egs/tedlium/s5
 - Make sure to run `run.sh` all the way upto and including `local/nnet/run_dnn.sh`
+- NOTE: My experiments were with audio sampled at 8,000Hz, the tedlium corpus files are 16,000Hz so I downsampled them first before building the acoustic model (with `run.sh`).
