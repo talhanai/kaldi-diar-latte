@@ -27,7 +27,7 @@ $> ngram-count -text text.txt -lm text.txt.lm.gz -kndiscount
 
 ## 4. Build your own lexicon.
 
-Start with your list of words (the same words that is in your `text.txt` used in your language model):
+1. Extract your list of words (the same words that is in your `text.txt` used in your language model):
 ```
 $> sed 's/ /\/g text.txt | sed '/^$/d' | sort | uniq > vocab.txt # prints your vocabulary to file
 $> cat vocab.txt # take a look at the list of words
@@ -41,7 +41,7 @@ zoo
 zoom
   ```
 
-- Generate pronunciations from this tool: http://www.speech.cs.cmu.edu/tools/lextool.html
+2. Generate pronunciations from this tool: http://www.speech.cs.cmu.edu/tools/lextool.html
 
 The results will look something like this, which will be your `lexicon.txt`:
 ```
@@ -50,7 +50,7 @@ abducted AE B D AH K T IH D
 abducted AH B D AH K T IH D
 ```
 
-- Make sure the list of words match what is contained in the text of the language model, otherwise Kaldi will complain when it combines the data. It can't understand that there are words in the language model that don't have pronunciations.
+NOTE: Make sure the list of words match what is contained in the text of the language model, otherwise Kaldi will complain when it combines the data. It can't understand that there are words in the language model that don't have pronunciations.
 
 ## 5. Build your own acoustic model.
 I used one of Kaldi's standard recipes to train a DNN acoustic model. 
