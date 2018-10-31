@@ -14,6 +14,11 @@ steps/make_fbank_pitch.sh --nj $nj --cmd "run.pl" $test $test/log $test/data || 
 steps/compute_cmvn_stats.sh $test $test/log $test/data || exit 1;
 ```
 
+I worked with 8,000Hz single-channel .wav files. You can convert them like this.
+```
+ffmpeg -n -i $inputfilename -ar 8000 -ac 1 $outputfilename.wav 
+```
+
 ## 3. Build your language model.
 
 You might want to utilize your own text to build a language model (i.e. pattern of language word sequences).
