@@ -9,6 +9,7 @@ Extract 40-mel filterbank (+ 3 pitch) features from audio, and normalize (CMVN -
 
 ``` 
 nj=4 # number of jobs/cpus
+test=data-fbank/test
 steps/make_fbank_pitch.sh --nj $nj --cmd "run.pl" $test $test/log $test/data || exit 1;
 steps/compute_cmvn_stats.sh $test $test/log $test/data || exit 1;
 ```
@@ -18,6 +19,9 @@ Decode audio utilizing the filterbank features and graph that contains lexicon, 
 
 ```
 nj=4 # number of jobs/cpus
+test=data-fbank/test
+tedliumDir=$kaldi/egs/tedlium
+dir=$tedliumDir/exp/dnn4d-fbank_pretrain-dbn_dnn_smbr
 steps/nnet/decode.sh --nj $nj \
         --cmd "run.pl" \
         --config conf/decode_dnn.config \
@@ -51,6 +55,7 @@ zoom
   ```
 
 - Generate pronunciations from this tool: http://www.speech.cs.cmu.edu/tools/lextool.html
-- Make sure the list of words match what is contained in the text of the language model.
+- Make sure the list of words match what is contained in the text of the language model, otherwise Kaldi will complain when it combines the data. It can't understand that there are words in the language model that don't have pronunciations.
 
 ## 6. Build your own acoustic model.
+I used one of Kaldi's standard recipes to train a DNN acoustic model. Specifically, 
