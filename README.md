@@ -1,5 +1,5 @@
 # kaldi-diar-latte
-This repo lists steps to perform diarization of audio with the kaldi toolkit. Diarization (who-spoken-when) is performed by decoding audio and generating transcriptions (speech-to-text). The transcriptions contain information on who was hypothesized (most likely) to be speaking. 
+This repo lists steps to perform text-based diarization of audio with the kaldi toolkit. Diarization (who-spoken-when) is performed by decoding audio and generating transcriptions (speech-to-text). The transcriptions contain information on who was hypothesized (most likely) to be speaking, and what they were likely to be saying. 
 
 ## 1. Install Kaldi toolkit 
 From here: http://kaldi-asr.org/
@@ -14,6 +14,47 @@ nj=4 # number of jobs/cpus
 test=data-fbank/test
 steps/make_fbank_pitch.sh --nj $nj --cmd "run.pl" $test $test/log $test/data || exit 1;
 steps/compute_cmvn_stats.sh $test $test/log $test/data || exit 1;
+```
+
+The **$test** directory will containing the files `wav.scp`, `text`, `utt2spk`, and `spk2utt` that you must generate in a (kaldi pre-defined) format. Details on these files can be [found here](http://kaldi-asr.org/doc/data_prep.html)
+```
+$> head *
+
+==> spk2utt <==
+SID-0001 SID-0001
+SID-0002 SID-0002
+SID-0003 SID-0003
+
+==> text <==
+SID-0001 <empty>
+SID-0002 <empty>
+SID-0003 <empty>
+
+==> utt2spk <==
+SID-0001 SID-0001
+SID-0002 SID-0002
+SID-0003 SID-0003
+
+==> wav.scp <==
+SID-0001 DVR_226ABCDEF_DATEXY_TID1.wav
+SID-0002 DVR_226ABCDEF_DATEXY_TID2.wav
+SID-0003 DVR_226ABCDEF_DATEXY_TID3.wav
+
+```
+
+Once you generate features using the `steps/make_fbank_pitch.sh` and `steps/compute_cmvn_stats.sh` you will have the following files in **$test**: `feats.scp` and `cmvn.scp`.
+
+```
+==> cmvn.scp <==
+SID-0001 /usr/users/tuka/fram/analysis_1/data-fbank/test7501/data/cmvn_test7501.ark:9
+SID-0002 /usr/users/tuka/fram/analysis_1/data-fbank/test7501/data/cmvn_test7501.ark:737
+SID-0003 /usr/users/tuka/fram/analysis_1/data-fbank/test7501/data/cmvn_test7501.ark:1465
+
+==> feats.scp <==
+SID-0001 /data/sls/static/fhs/fbank/data_fbank_40_pitch/data/raw_fbank_pitch_fhs_fbank40_pitch.1.ark:9
+SID-0002 /data/sls/static/fhs/fbank/data_fbank_40_pitch/data/raw_fbank_pitch_fhs_fbank40_pitch.1.ark:28162416
+SID-0003 /data/sls/static/fhs/fbank/data_fbank_40_pitch/data/raw_fbank_pitch_fhs_fbank40_pitch.1.ark:58370247
+
 ```
 
 I worked with 8,000Hz single-channel .wav files. You can convert them like this.
