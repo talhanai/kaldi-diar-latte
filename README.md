@@ -119,12 +119,15 @@ $> ngram-count -text text.txt -lm lang/text.txt.lm.gz -kndiscount
 
 Specific to the task of text-based speaker diarization, you will need to modify the words in the text to label who said what. A phrase like this:
 
-> what happened to anna thomson she was robbed
-
+```
+what happened to anna thomson she was robbed
+```
 
 will be formatted with tags `P` (Patient) and `T` (Tester) appended to the end of the word to mark who said what. 
 
-> what_T happened_T to_T anna_T thomson_T she_P was_P robbed_P
+```
+what_T happened_T to_T anna_T thomson_T she_P was_P robbed_P
+```
 
 This all assumes you know who said what in advance. This allows for the language model to learn some statistics about word usage as a function of the speaker.
 
