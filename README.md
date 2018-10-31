@@ -42,5 +42,6 @@ zoom
   ```
 
 Generate pronunciations from this tool: http://www.speech.cs.cmu.edu/tools/lextool.html
+- Make sure the list of words match what is contained in the text of the language model.
 
 ## 6. Build your own acoustic model.
