@@ -281,6 +281,7 @@ hubdir=`dirname $hubscr`
 data=data-fbank/test
 dir=$mykaldi/egs/tedlium/s5/exp/dnn4d-fbank_pretrain-dbn_dnn_smbr/decode_test-fhs_PT_it4
 
+# this is from the last section in `local/score.sh`
 $hubscr -p $hubdir -V -l english -h hub5 -g $data/glm -r $dir/score_10_0.0/stm $dir/score_10_0.0/ctm.filt
 ```
 
