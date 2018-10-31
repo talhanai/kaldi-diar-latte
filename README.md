@@ -9,13 +9,14 @@ If you are going to use kaldi with a GPU (to train DNN acoustic models for examp
 Make sure you source your paths before running these scripts.
 
 ```
-$>source path.sh; source cmd.sh
+$> source path.sh; source cmd.sh
 ```
 
 ## 2. Extract features
 Extract 40-mel filterbank (+ 3 pitch) features from audio, and normalize (CMVN - cepstral mean variance normalize).
 
 ``` 
+#!/bin/bash
 nj=4 # number of jobs/cpus
 data=data-fbank/test
 steps/make_fbank_pitch.sh --nj $nj --cmd "run.pl" $data $data/log $data/data || exit 1;
@@ -117,15 +118,13 @@ $> ngram-count -text text.txt -lm lang/text.txt.lm.gz -kndiscount
 - Make sure to convert text into lower case.
 
 Specific to the task of text-based speaker diarization, you will need to modify the words in the text to label who said what. A phrase like this:
-```
-what happened to anna thomson she was robbed
-```
+
+> what happened to anna thomson she was robbed
+
 
 will be formatted with tags `P` (Patient) and `T` (Tester) appended to the end of the word to mark who said what. 
 
-```
-what_T happened_T to_T anna_T thomson_T she_P was_P robbed_P
-```
+> what_T happened_T to_T anna_T thomson_T she_P was_P robbed_P
 
 This all assumes you know who said what in advance. This allows for the language model to learn some statistics about word usage as a function of the speaker.
 
