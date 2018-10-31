@@ -42,19 +42,19 @@ SID-0002 DVR_226ABCDEF_DATEXY_TID2.wav
 SID-0003 DVR_226ABCDEF_DATEXY_TID3.wav
 
 ==> text <==
-SID-0001 <empty>
-SID-0002 <empty>
-SID-0003 <empty>
+SID-0001-00 <empty>
+SID-0001-01 <empty>
+SID-0001-02 <empty>
 
 ==> utt2spk <==
-SID-0001 SID-0001
-SID-0002 SID-0002
-SID-0003 SID-0003
+SID-0001-00 SID-0001-00
+SID-0001-01 SID-0001-01
+SID-0001-02 SID-0001-02
 
 ==> spk2utt <==
-SID-0001 SID-0001
-SID-0002 SID-0002
-SID-0003 SID-0003
+SID-0001-00 SID-0001-00
+SID-0001-01 SID-0001-01
+SID-0001-02 SID-0001-02
 
 ==> segments <==
 SID-0001-00 SID-0001 0 300
@@ -67,6 +67,11 @@ SID-0001-00 A SID-0001 0 300 <empty>
 SID-0001-01 A SID-0001 300 600 <empty>
 SID-0001-02 A SID-0001 600 900 <empty>
 SID-0001-03 A SID-0001 900 1200 <empty>
+
+==> reco2file_and_channel <==
+SID-0001 SID-0001 A
+SID-0002 SID-0002 A
+SID-0003 SID-0003 A
 
 ==> glm <==
 ;; empty.glm 
@@ -176,7 +181,7 @@ abducted AH B D AH K T IH D
 
 NOTE: Make sure the list of words match what is contained in the text of the language model, otherwise Kaldi will complain when it combines the data. It can't understand that there are words in the language model that don't have pronunciations.
 
-NOTE2: The lextool will append numbers to words with multiple pronunications (`hello HH EH L OW; hello(1) HH AH L OW`), remove the number(s) `(1)` because it will not match the word(s) in your language model causing problems for kaldi to compile the information. It will look like this: `hello HH EH L OW; hello HH AH L OW`
+NOTE 2: The lextool will append numbers to words with multiple pronunications (`hello HH EH L OW; hello(1) HH AH L OW`), remove the number(s) `(1)` because it will not match the word(s) in your language model causing problems for kaldi to compile the information. It will look like this: `hello HH EH L OW; hello HH AH L OW`
 
 You will need to append speaker tags to the words, so that it matches the vocabulary in your language model (or you could try and generate the lexicon with the speaker tags on the words, but make sure the _pronunciation_ does not include the speaker tags). This will be your `lexicon.txt`.
 
