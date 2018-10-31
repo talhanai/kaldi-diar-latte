@@ -58,9 +58,9 @@ zoom
 
 The results will look something like this:
 ```
-       abduct AE B D AH K T
-       abducted AE B D AH K T IH D
-       abducted AH B D AH K T IH D
+abduct AE B D AH K T
+abducted AE B D AH K T IH D
+abducted AH B D AH K T IH D
 ```
 
 - Make sure the list of words match what is contained in the text of the language model, otherwise Kaldi will complain when it combines the data. It can't understand that there are words in the language model that don't have pronunciations.
