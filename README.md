@@ -135,13 +135,14 @@ You might want to utilize your own text to build a language model (i.e. pattern 
 - Create  a `lang/` directory to deposit your language model.
 - Make sure all punctuation is removed from your text file (`text.txt`).
 - Make sure to convert the text into lower case.
-- Run the following command to generate your language model that kaldi can later use in its decoder (it is a tri-gram model with Knesser-Ney discounting).
+
+Run the following command to generate your language model that kaldi can later use in its decoder (it is a tri-gram model with Knesser-Ney discounting).
 
 ```
 $> ngram-count -text text.txt -lm lang/text.txt.lm.gz -kndiscount
 ```
 
-Specific to the task of text-based speaker diarization, you will need to modify the words in the `text.txt` to label who said what (before you run `ngram-count` to build your language model). A phrase like this:
+Specific to the task of text-based speaker diarization, you will need to modify the words in the `train.txt` to label who said what (before you run `ngram-count` to build your language model). A phrase like this:
 
 ```
 what happened to anna thomson she was robbed
@@ -153,14 +154,14 @@ will be formatted with tags `P` (Patient) and `T` (Tester) appended to the end o
 what_T happened_T to_T anna_T thomson_T she_P was_P robbed_P
 ```
 
-This all assumes you know who said what in advance. This allows for the language model to learn some statistics about word usage as a function of the speaker.
+This all assumes you know who-said-what in advance. This text formatting allows for the language model to learn some statistics about word usage as a function of the speaker.
 
 
 ## 4. Build your own lexicon.
 
-Extract your list of words (the same words that is in your `text.txt` used in your language model).
+Extract your list of words (the same words that is in your `train.txt` used in your language model).
 ```
-$> sed 's/ /\/g text.txt | sed '/^$/d' | sort | uniq > vocab.txt # prints your vocabulary to file
+$> sed 's/ /\/g train.txt | sed '/^$/d' | sort | uniq > vocab.txt # prints your vocabulary to file
 $> cat vocab.txt # take a look at the list of words
 achilles
 acid
