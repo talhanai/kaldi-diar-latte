@@ -126,7 +126,7 @@ NOTE: Make sure the list of words match what is contained in the text of the lan
 
 NOTE2: The lextool will append numbers to words with multiple pronunications (`hello HH EH L OW; hello(1) HH AH L OW`), remove the number(s) `(1)` because it will not match the word(s) in your language model causing problems for kaldi to compile the information. It will look like this: `hello HH EH L OW; hello HH AH L OW`
 
-Now you will need to build your other lexicon related files.
+Now you will need to build your other lexicon related files and store them in a `dict/` directory. `dict/` will contain the files that define what the phonetic units are in the language and the relationships between them. These files are: `extra_questions.txt`, `nonsilence_phones.txt`, `optional_silence.txt`, `silence_phones.txt` which is contained in this repo (and match the entries of the TEDLIUM s5/ kaldi setep). You will need to add `lexicon.txt` to the `dict/` directory. `lexiconp.txt` will be generated automatically (and contains a weighted lexicon which you don't have to worry about).
 
 ## 5. Build your own acoustic model.
 I used one of Kaldi's standard recipes to train a DNN acoustic model. 
@@ -139,6 +139,7 @@ I used one of Kaldi's standard recipes to train a DNN acoustic model.
  During the acoustic model training, lexicon and language models were generated on the tedlium corpus. (You can try decoding with it but it will likely transcribe the audio poorly). So this is how you can combine your own lexical and language model.
  
  ```
+ exp=$tedliumDir/exp/tri3
  utils/prepare_lang.sh $dict "<unk>" $lang $lang
  preprocess/format_lm.sh $lang $lang/text.txt.lm.gz $dict/lexicon.txt $lang
  utils/mkgraph.sh $lang $exp $exp/graph
@@ -156,7 +157,28 @@ steps/nnet/decode.sh --nj $nj \
         --cmd "run.pl" \
         --config conf/decode_dnn.config \
         --nnet $dir/4.nnet --acwt 0.1 \
-        $tedliumDir/exp/tri3/graph $data $dir/decode_test-fhs_it4 || exit 1
+        $tedliumDir/exp/tri3/graph $data $dir/decode_test-fhs_PT_it4 || exit 1
+```
+The results of the decoding will be deposited in `$dir/decode_test-fhs_it4`.
+
+## 8. Evaluate results
+The text will be decoded like this:
+```
+what_T happened_T to_T anna_T thomson_T she_P was_P robbed_P
+```
+- To evaluate the accuracy of the transcription, you will need to remove the `_{P,T}` tags.
+- To evaluate the accuracy of the diarization, you will need to remove the words and keep the `_{P,T}` tags.
+
+Specifically to kaldi, you will find the decoded information in a `ctm` file, which shows the hypothesized start and end time of each word (as well as the hypothesized speaker that said each word).
+
+```
+$> head $dir/decode_test-fhs_PT_it4/score_10_0.0/ctm
+226A A 10.71 0.26 right_P 0.70
+226A A 11.14 0.30 the_P 0.24
+226A A 12.46 0.14 you_P 0.38
+226A A 12.65 0.11 know_P 0.33
+226A A 12.97 0.27 whatd_P 0.23
+226A A 13.63 0.14 you_P 0.37
 ```
 
 # Reference
