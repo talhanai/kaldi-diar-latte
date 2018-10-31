@@ -28,6 +28,19 @@ ngram-count -text text.txt -lm text.txt.lm -kndiscount
 ```
 
 5. Build your own lexicon.
+
+Start with your list of words:
+```
+achilles
+acid
+acknowledge
+acknowledgement
+...
+zebra
+zoo
+zoom
+  ```
+
 Generate pronunciations from this tool: http://www.speech.cs.cmu.edu/tools/lextool.html
 
 6. Build your own acoustic model.
