@@ -6,7 +6,11 @@ From here: http://kaldi-asr.org/
 
 If you are going to use kaldi with a GPU (to train DNN acoustic models for example), then make sure to install kaldi with `--use-cuda=yes (default)`. The following steps, except for building acoustic models will not require a GPU.
 
-Make sure you `source path.sh; source cmd.sh` before running these scripts.
+Make sure you source your paths before running these scripts.
+
+```
+$>source path.sh; source cmd.sh
+```
 
 ## 2. Extract features
 Extract 40-mel filterbank (+ 3 pitch) features from audio, and normalize (CMVN - cepstral mean variance normalize).
