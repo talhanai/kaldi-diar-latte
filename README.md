@@ -11,12 +11,12 @@ Extract 40-mel filterbank (+ 3 pitch) features from audio, and normalize (CMVN -
 
 ``` 
 nj=4 # number of jobs/cpus
-test=data-fbank/test
-steps/make_fbank_pitch.sh --nj $nj --cmd "run.pl" $test $test/log $test/data || exit 1;
-steps/compute_cmvn_stats.sh $test $test/log $test/data || exit 1;
+data=data-fbank/test
+steps/make_fbank_pitch.sh --nj $nj --cmd "run.pl" $data $data/log $data/data || exit 1;
+steps/compute_cmvn_stats.sh $data $data/log $data/data || exit 1;
 ```
 
-The **$test** directory will containing the files `wav.scp`, `text`, `utt2spk`, and `spk2utt` that you must generate in a (kaldi pre-defined) format. Details on these files can be [found here](http://kaldi-asr.org/doc/data_prep.html)
+The **$test** directory will containing the files `wav.scp`, `text`, `utt2spk`, and `spk2utt` that you must generate in a (kaldi pre-defined) format. Details on these files can be [found here](http://kaldi-asr.org/doc/data_prep.html). They should look like this:
 ```
 $> head *
 
@@ -42,20 +42,23 @@ SID-0003 DVR_226ABCDEF_DATEXY_TID3.wav
 
 ```
 
-Once you generate features using the `steps/make_fbank_pitch.sh` and `steps/compute_cmvn_stats.sh` you will have the following files in **$test**: `feats.scp` and `cmvn.scp`.
+Once you generate features using the `steps/make_fbank_pitch.sh` and `steps/compute_cmvn_stats.sh` you will have the following files in `data-fbank/test`: `feats.scp` and `cmvn.scp`. These files are pointers to the location of the features (`*.ark` files)
 
 ```
 ==> cmvn.scp <==
-SID-0001 /usr/users/tuka/fram/analysis_1/data-fbank/test7501/data/cmvn_test7501.ark:9
-SID-0002 /usr/users/tuka/fram/analysis_1/data-fbank/test7501/data/cmvn_test7501.ark:737
-SID-0003 /usr/users/tuka/fram/analysis_1/data-fbank/test7501/data/cmvn_test7501.ark:1465
+SID-0001 data-fbank/test/data/cmvn_test7501.ark:9
+SID-0002 data-fbank/test/data/cmvn_test7501.ark:737
+SID-0003 data-fbank/test/data/cmvn_test7501.ark:1465
 
 ==> feats.scp <==
-SID-0001 /data/sls/static/fhs/fbank/data_fbank_40_pitch/data/raw_fbank_pitch_fhs_fbank40_pitch.1.ark:9
-SID-0002 /data/sls/static/fhs/fbank/data_fbank_40_pitch/data/raw_fbank_pitch_fhs_fbank40_pitch.1.ark:28162416
-SID-0003 /data/sls/static/fhs/fbank/data_fbank_40_pitch/data/raw_fbank_pitch_fhs_fbank40_pitch.1.ark:58370247
+SID-0001 data-fbank/test/data/raw_fbank_pitch_fhs_fbank40_pitch.1.ark:9
+SID-0002 data-fbank/test/data/raw_fbank_pitch_fhs_fbank40_pitch.1.ark:28162416
+SID-0003 data-fbank/test/raw_fbank_pitch_fhs_fbank40_pitch.1.ark:58370247
 
 ```
+
+These features will be contained in `data-fbank/test/data/*`.
+
 
 I worked with 8,000Hz single-channel .wav files. You can convert them like this.
 ```
@@ -127,14 +130,14 @@ Decode audio utilizing the filterbank features and graph that contains lexicon, 
 
 ```
 nj=4 # number of jobs/cpus
-test=data-fbank/test
+data=data-fbank/test
 tedliumDir=$kaldi/egs/tedlium/s5
 dir=$tedliumDir/exp/dnn4d-fbank_pretrain-dbn_dnn_smbr
 steps/nnet/decode.sh --nj $nj \
         --cmd "run.pl" \
         --config conf/decode_dnn.config \
         --nnet $dir/4.nnet --acwt 0.1 \
-        $tedliumDir/exp/tri3/graph $test $dir/decode_test-fhs_it4 || exit 1
+        $tedliumDir/exp/tri3/graph $data $dir/decode_test-fhs_it4 || exit 1
 ```
 
 # Reference
