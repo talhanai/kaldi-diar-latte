@@ -289,7 +289,6 @@ There will be several `ctm.filt.filt.*` files generated. To get the WER look at 
 ```
 $> dir=$mykaldi/egs/tedlium/s5/exp/dnn4d-fbank_pretrain-dbn_dnn_smbr/decode_test-fhs_PT_it4
 $> grep "Total Error"  $dir/decode_test-fhs_PT_it4/score_10_0.0/ctm.filt.filt.dtl
-
 ```
 
 In order to evaluate the **Diarization Error Rate (DER)** you will need to convert the `ctm` file into an `rttm` format. This is an example.
@@ -303,7 +302,7 @@ SPEAKER SID-0001 1 0012.00 003.00 <NA> <NA> SID-0001-T <NA>
 
 Then run the following tool to evaluate DER.
 ```
-perl md-eval-v21.pl -m -afc -c 0.25 -r reference.rttm -s hypothesis.rttm
+$> perl md-eval-v21.pl -m -afc -c 0.25 -r reference.rttm -s hypothesis.rttm
 ```
 NOTE: 0.25 (250 ms) is a default parameter for the buffer outside of the boundary that may be taken into consideration for the scoring.
 
