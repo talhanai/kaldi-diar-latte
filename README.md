@@ -77,7 +77,7 @@ SID-0004  [
 ```
 
 
-I worked with 8,000Hz single-channel .wav files. You can convert them like this.
+NOTE: I worked with 8,000Hz single-channel .wav files. You can convert them like this.
 ```
 $> ffmpeg -n -i $inputfilename -ar 8000 -ac 1 $outputfilename.wav 
 
