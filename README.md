@@ -304,6 +304,9 @@ There will be several `ctm.filt.filt.*` files generated. To get the WER look at 
 ```
 $> dir=$mykaldi/egs/tedlium/s5/exp/dnn4d-fbank_pretrain-dbn_dnn_smbr/decode_test-fhs_PT_it4
 $> grep "Total Error"  $dir/decode_test-fhs_PT_it4/score_10_0.0/ctm.filt.filt.dtl
+
+Percent Total Error       =   68.7%   (288016)
+
 ```
 
 In order to evaluate the **Diarization Error Rate (DER)** you will need to convert the `ctm` file into an `rttm` format. This is an example.
