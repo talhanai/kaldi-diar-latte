@@ -16,7 +16,12 @@ steps/make_fbank_pitch.sh --nj $nj --cmd "run.pl" $data $data/log $data/data || 
 steps/compute_cmvn_stats.sh $data $data/log $data/data || exit 1;
 ```
 
-The `data-fbank/test` directory will containing the files `wav.scp`, `text`, `utt2spk`, and `spk2utt` that you must generate in a (kaldi pre-defined) format. Details on these files can be [found here](http://kaldi-asr.org/doc/data_prep.html). They should look like this:
+The `data-fbank/test` directory will contain the files: 
+- `wav.scp`, 
+- `text`, 
+- `utt2spk`, 
+- and `spk2utt` 
+that you must generate in a (kaldi pre-defined) format. Details on these files can be [found here](http://kaldi-asr.org/doc/data_prep.html). They should look like this:
 ```
 $ data-fbank/test > head *
 
