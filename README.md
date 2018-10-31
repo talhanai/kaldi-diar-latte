@@ -107,10 +107,11 @@ $> sox $inputfilename $outputfilename.wav channels 1 rate 8k
 You might want to utilize your own text to build a language model (i.e. pattern of language word sequences).
 
 - Install the SRILM toolkit: http://www.speech.sri.com/projects/srilm/download.html
+- Create  a `lang/` directory to deposit your language model.
 - Run the following command to generate your language model that kaldi can later use in its decoder (it is a tri-gram model with Knesser-Ney discounting).
 
 ```
-$> ngram-count -text text.txt -lm text.txt.lm.gz -kndiscount
+$> ngram-count -text text.txt -lm lang/text.txt.lm.gz -kndiscount
 ```
 - Make sure all punctuation is removed.
 - Make sure to convert text into lower case.
@@ -188,13 +189,13 @@ I used one of Kaldi's standard recipes to train a DNN acoustic model.
 - NOTE: My experiments were with audio sampled at 8,000Hz, the tedlium corpus files are 16,000Hz so I downsampled them first before building the acoustic model (with `run.sh`).
 
 ## 6. Combine data
- During the acoustic model training, lexicon and language models were generated on the tedlium corpus. (You can try decoding with it but it will likely transcribe the audio poorly). So this is how you can combine your own lexical and language model.
+ During the acoustic model training, lexicon(`dict/`) and language models (`lang/`) were generated on the tedlium corpus. (You can try decoding with it but it will likely transcribe the audio poorly). So this is how you can combine your own lexical and language model.
  
  ```
  exp=$tedliumDir/exp/tri3
- utils/prepare_lang.sh $dict "<unk>" $lang $lang
- preprocess/format_lm.sh $lang $lang/text.txt.lm.gz $dict/lexicon.txt $lang
- utils/mkgraph.sh $lang $exp $exp/graph
+ utils/prepare_lang.sh dict "<unk>" lang lang
+ preprocess/format_lm.sh lang lang/text.txt.lm.gz dict/lexicon.txt lang
+ utils/mkgraph.sh lang $exp $exp/graph
  ```
 
 ## 7. Decode audio 
