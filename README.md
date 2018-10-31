@@ -206,7 +206,7 @@ Decode audio utilizing the filterbank features and graph that contains lexicon, 
 ```
 nj=4 # number of jobs/cpus
 data=data-fbank/test
-tedliumDir=$kaldi/egs/tedlium/s5
+tedliumDir=$mykaldi/egs/tedlium/s5
 dir=$tedliumDir/exp/dnn4d-fbank_pretrain-dbn_dnn_smbr
 steps/nnet/decode.sh --nj $nj \
         --cmd "run.pl" \
@@ -216,13 +216,15 @@ steps/nnet/decode.sh --nj $nj \
 ```
 The results of the decoding will be deposited in `$dir/decode_test-fhs_it4`.
 
+NOTE: I was decoding 30 minute long segments. I would suggest splitting your audio (to a few minutes long...?) with 5 second overlap at the beginning/end of each segment. The decoder isn't meant to work/tested with such long segments.
+
 ## 8. Evaluate results
 The text will be decoded like this:
 ```
 what_T happened_T to_T anna_T thomson_T she_P was_P robbed_P
 ```
 - To evaluate the accuracy of the transcription, you will need to remove the `_{P,T}` tags (P = Patient, T = Tester).
-- To evaluate the accuracy of the diarization, you will need to remove the words and keep the `_{P,T}` tags.
+- To evaluate the accuracy of the diarization, you will need to remove the words and keep the `_{P,T}` tags and timestamps.
 
 Specifically to kaldi, you will find the decoded information in a `ctm` file, which shows the hypothesized start and end time of each word (as well as the hypothesized speaker (P or T) that said each word).
 
@@ -234,6 +236,17 @@ $> head $dir/decode_test-fhs_PT_it4/score_10_0.0/ctm
 226A A 12.65 0.11 know_P 0.33
 226A A 12.97 0.27 whatd_P 0.23
 226A A 13.63 0.14 you_P 0.37
+```
+
+If you can't find a `score/` directory you might need to run this script:
+```
+#!/bin/bash
+data=data-fbank/test
+tedliumDir=$mykaldi/egs/tedlium/s5
+dir=$tedliumDir/exp/dnn4d-fbank_pretrain-dbn_dnn_smbr 
+graphdir=$tedliumDir/exp/tri3/graph
+scoring_opts="--min-lmwt 7 --max-lmwt 20" # weights to trust acoustic vs. language model.
+local/score.sh $scoring_opts --cmd "run.pl" $data $graphdir $dir
 ```
 
 # Reference
