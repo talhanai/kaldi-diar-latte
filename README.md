@@ -259,12 +259,12 @@ Specifically to kaldi, you will find the decoded information in a `ctm` file, wh
 ```
 $> head $dir/decode_test-fhs_PT_it4/score_10_0.0/ctm
 
-226A A 10.71 0.26 right_P 0.70
-226A A 11.14 0.30 the_P 0.24
-226A A 12.46 0.14 you_P 0.38
-226A A 12.65 0.11 know_P 0.33
-226A A 12.97 0.27 whatd_P 0.23
-226A A 13.63 0.14 you_P 0.37
+SID-0001 A 10.71 0.26 right_P 0.70
+SID-0001 A 11.14 0.30 the_P 0.24
+SID-0001 A 12.46 0.14 you_P 0.38
+SID-0001 A 12.65 0.11 know_P 0.33
+SID-0001 A 12.97 0.27 whatd_P 0.23
+SID-0001 A 13.63 0.14 you_P 0.37
 ```
 
 If you can't find a `score/` directory you might need to run this script:
