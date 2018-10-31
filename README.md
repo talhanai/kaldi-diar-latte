@@ -305,6 +305,7 @@ Then run the following tool to evaluate DER.
 ```
 perl md-eval-v21.pl -m -afc -c 0.25 -r reference.rttm -s hypothesis.rttm
 ```
+NOTE: 0.25 (250 ms) is a default parameter for the buffer outside of the boundary that may be taken into consideration for the scoring.
 
 # Reference
 ```
