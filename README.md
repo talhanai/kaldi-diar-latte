@@ -267,13 +267,31 @@ If you can't find a `score/` directory you might need to run this script:
 #!/bin/bash
 data=data-fbank/test
 tedliumDir=$mykaldi/egs/tedlium/s5
-dir=$tedliumDir/exp/dnn4d-fbank_pretrain-dbn_dnn_smbr 
+dir=$mykaldi/egs/tedlium/s5/exp/dnn4d-fbank_pretrain-dbn_dnn_smbr/decode_test-fhs_PT_it4
 graphdir=$tedliumDir/exp/tri3/graph
 scoring_opts="--min-lmwt 7 --max-lmwt 20" # weights to trust acoustic vs. language model.
+
 local/score.sh $scoring_opts --cmd "run.pl" $data $graphdir $dir
 ```
+In order to evaluate the **Word Error Rate (WER)** you will need to run the following on the `ctm` file (assuming the tags `_P` and `_T` have been removed).
+```
+#!/bin/bash
+hubscr=$KALDI_ROOT/tools/sctk/bin/hubscr.pl
+hubdir=`dirname $hubscr`
+data=data-fbank/test
+dir=$mykaldi/egs/tedlium/s5/exp/dnn4d-fbank_pretrain-dbn_dnn_smbr/decode_test-fhs_PT_it4
 
-In order to evaluate the Diarization Error Rate (DER) you will need to convert the `ctm` file into an `rttm` format. This is an example.
+$hubscr -p $hubdir -V -l english -h hub5 -g $data/glm -r $dir/score_10_0.0/stm $dir/score_10_0.0/ctm.filt
+```
+
+There will be several `ctm.filt.filt.*` files generated. To get the WER look at this:
+```
+$> dir=$mykaldi/egs/tedlium/s5/exp/dnn4d-fbank_pretrain-dbn_dnn_smbr/decode_test-fhs_PT_it4
+$> grep "Total Error"  $dir/decode_test-fhs_PT_it4/score_10_0.0/ctm.filt.filt.dtl
+
+```
+
+In order to evaluate the **Diarization Error Rate (DER)** you will need to convert the `ctm` file into an `rttm` format. This is an example.
 ```
 SPEAKER SID-0001 1 0000.00 005.00 <NA> <NA> SID-0001-T <NA>
 SPEAKER SID-0001 1 0005.00 001.00 <NA> <NA> SID-0001-P <NA>
@@ -287,8 +305,6 @@ Then run the following tool to evaluate DER.
 perl md-eval-v21.pl -m -afc -c 0.25 -r reference.rttm -s hypothesis.rttm
 ```
 
-
- 
 # Reference
 ```
 @inproceedings{al2018role,
