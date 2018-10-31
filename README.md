@@ -57,7 +57,7 @@ I used one of Kaldi's standard recipes to train a DNN acoustic model.
 - NOTE: My experiments were with audio sampled at 8,000Hz, the tedlium corpus files are 16,000Hz so I downsampled them first before building the acoustic model (with `run.sh`).
 
 ## 6. Combine data
- During the acoustic model training, lexicon and language models were generated on the tedlium corpus. (You can try decoding with it but it will likely transcribe the audio poorly).
+ During the acoustic model training, lexicon and language models were generated on the tedlium corpus. (You can try decoding with it but it will likely transcribe the audio poorly). So this is how you can combine your own lexical and language model.
  
  ```
  utils/prepare_lang.sh $dict "<unk>" $lang $lang
