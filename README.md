@@ -19,10 +19,10 @@ steps/compute_cmvn_stats.sh $test $test/log $test/data || exit 1;
 You might want to utilize your own text to build a language model (i.e. pattern of language word sequences).
 
 - Install the SRILM toolkit: http://www.speech.sri.com/projects/srilm/download.html
-- Run the following command to generate your language model that kaldi can later use in its decoder.
+- Run the following command to generate your language model that kaldi can later use in its decoder (it is a tri-gram model with Knesser-Ney discounting).
 
 ```
-ngram-count -text text.txt -lm text.txt.lm -kndiscount
+ngram-count -text text.txt -lm text.txt.lm.gz -kndiscount
 ```
 
 ## 4. Build your own lexicon.
@@ -41,7 +41,7 @@ zoom
 
 - Generate pronunciations from this tool: http://www.speech.cs.cmu.edu/tools/lextool.html
 
-The results will look something like this:
+The results will look something like this, which will be your `lexicon.txt`:
 ```
 abduct AE B D AH K T
 abducted AE B D AH K T IH D
@@ -56,7 +56,16 @@ I used one of Kaldi's standard recipes to train a DNN acoustic model.
 - Make sure to run `run.sh` all the way upto and including `local/nnet/run_dnn.sh`
 - NOTE: My experiments were with audio sampled at 8,000Hz, the tedlium corpus files are 16,000Hz so I downsampled them first before building the acoustic model (with `run.sh`).
 
-## 6. Decode audio 
+## 6. Combine data
+ During the acoustic model training, lexicon and language models were generated on the tedlium corpus. You can try decoding it but it will likely poorly transcribe the audio.
+ 
+ ```
+ utils/prepare_lang.sh $dict "<unk>" $lang $lang
+ preprocess/format_lm.sh $lang $lang/text.txt.lm.gz $dict/lexicon.txt $lang
+ utils/mkgraph.sh $lang $exp $exp/graph
+ ```
+
+## 7. Decode audio 
 Decode audio utilizing the filterbank features and graph that contains lexicon, language model, and acoustic model combined.
 
 ```
