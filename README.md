@@ -65,7 +65,8 @@ NOTE: Make sure the list of words match what is contained in the text of the lan
 
 ## 5. Build your own acoustic model.
 I used one of Kaldi's standard recipes to train a DNN acoustic model. 
-- Specifically the Tedlium s5 recipe: https://github.com/kaldi-asr/kaldi/tree/master/egs/tedlium/s5
+- Specifically the TEDLIUM s5 recipe: https://github.com/kaldi-asr/kaldi/tree/master/egs/tedlium/s5
+-- The  TEDLIUM  corpus contains over 1,400 audio recordings and text transcription of TED talks, for a total of 120 hours  of  data  and  1.7M  words.
 - Make sure to run `run.sh` all the way upto and including `local/nnet/run_dnn.sh`
 - NOTE: My experiments were with audio sampled at 8,000Hz, the tedlium corpus files are 16,000Hz so I downsampled them first before building the acoustic model (with `run.sh`).
 
