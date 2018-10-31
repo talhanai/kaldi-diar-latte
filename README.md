@@ -273,6 +273,22 @@ scoring_opts="--min-lmwt 7 --max-lmwt 20" # weights to trust acoustic vs. langua
 local/score.sh $scoring_opts --cmd "run.pl" $data $graphdir $dir
 ```
 
+In order to evaluate the Diarization Error Rate (DER) you will need to convert the `ctm` file into an `rttm` format. This is an example.
+```
+SPEAKER SID-0001 1 0000.00 005.00 <NA> <NA> SID-0001-T <NA>
+SPEAKER SID-0001 1 0005.00 001.00 <NA> <NA> SID-0001-P <NA>
+SPEAKER SID-0001 1 0006.00 005.00 <NA> <NA> SID-0001-P <NA>
+SPEAKER SID-0001 1 0011.00 001.00 <NA> <NA> SID-0001-P <NA>
+SPEAKER SID-0001 1 0012.00 003.00 <NA> <NA> SID-0001-T <NA>
+```
+
+Then run the following tool to evaluate DER.
+```
+md-eval-v21.pl -m -afc -c 0.25 -r <(cat reference.rttm) -s <(cat hypothesis.rttm)
+```
+
+
+ 
 # Reference
 ```
 @inproceedings{al2018role,
