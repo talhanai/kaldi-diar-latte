@@ -218,10 +218,10 @@ I used one of Kaldi's standard recipes to train a DNN acoustic model.
  During the acoustic model training, lexicon(`dict/`) and language models (`lang/`) were generated on the tedlium corpus. (You can try decoding with it but it will likely transcribe the audio poorly). So this is how you can combine your own lexical and language model.
  
  ```
- exp=$tedliumDir/exp/tri3
+ exp=$mykaldi/egs/tedlium/s5/exp/tri3
  utils/prepare_lang.sh dict "<unk>" lang lang
  preprocess/format_lm.sh lang lang/text.txt.lm.gz dict/lexicon.txt lang
- utils/mkgraph.sh lang $exp $exp/graph
+ utils/mkgraph.sh lang $exp $exp/graph_fhs_PT
  ```
 
 ## 7. Decode audio 
@@ -236,7 +236,7 @@ steps/nnet/decode.sh --nj $nj \
         --cmd "run.pl" \
         --config conf/decode_dnn.config \
         --nnet $dir/4.nnet --acwt 0.1 \
-        $tedliumDir/exp/tri3/graph $data $dir/decode_test-fhs_PT_it4 || exit 1
+        $tedliumDir/exp/tri3/graph_fhs_PT $data $dir/decode_test-fhs_PT_it4 || exit 1
 ```
 The results of the decoding will be deposited in `$dir/decode_test-fhs_it4`.
 
@@ -254,6 +254,7 @@ Specifically to kaldi, you will find the decoded information in a `ctm` file, wh
 
 ```
 $> head $dir/decode_test-fhs_PT_it4/score_10_0.0/ctm
+
 226A A 10.71 0.26 right_P 0.70
 226A A 11.14 0.30 the_P 0.24
 226A A 12.46 0.14 you_P 0.38
@@ -266,13 +267,23 @@ If you can't find a `score/` directory you might need to run this script:
 ```
 #!/bin/bash
 data=data-fbank/test
-tedliumDir=$mykaldi/egs/tedlium/s5
 dir=$mykaldi/egs/tedlium/s5/exp/dnn4d-fbank_pretrain-dbn_dnn_smbr/decode_test-fhs_PT_it4
-graphdir=$tedliumDir/exp/tri3/graph
+graphdir=$tedliumDir/exp/tri3/graph_fhs_PT
 scoring_opts="--min-lmwt 7 --max-lmwt 20" # weights to trust acoustic vs. language model.
 
 local/score.sh $scoring_opts --cmd "run.pl" $data $graphdir $dir
 ```
+
+If you want to generate a `ctm` file you can run this:
+```
+#!/bin/bash
+data=data-fbank/test
+dir=$mykaldi/egs/tedlium/s5/exp/dnn4d-fbank_pretrain-dbn_dnn_smbr/decode_test-fhs_PT_it4
+
+./steps/get_train_ctm.sh --use-segments false $data lang $dir
+```
+
+
 In order to evaluate the **Word Error Rate (WER)** you will need to run the following on the `ctm` file (assuming the tags `_P` and `_T` have been removed).
 ```
 #!/bin/bash
