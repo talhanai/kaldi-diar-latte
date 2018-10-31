@@ -101,7 +101,7 @@ $> ngram-count -text text.txt -lm text.txt.lm.gz -kndiscount
 
 Specific to the task of text-based speaker diarization, you will need to modify the words in the text to label who said what. A phrase like this:
 ```
-what happened to anna thomson_T she was robbed
+what happened to anna thomson she was robbed
 ```
 
 will be formatted with tags `P` (Patient) and `T` (Tester) appended to the end of the word to mark who said what. 
