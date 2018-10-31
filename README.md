@@ -62,6 +62,7 @@ abducted AH B D AH K T IH D
 ```
 
 NOTE: Make sure the list of words match what is contained in the text of the language model, otherwise Kaldi will complain when it combines the data. It can't understand that there are words in the language model that don't have pronunciations.
+NOTE2: The lextool will append numbers to words with multiple pronunications (`HELLO HH EH L OW; HELLO(1) HH AH L OW`), remove the numbers --> `(1)`.
 
 ## 5. Build your own acoustic model.
 I used one of Kaldi's standard recipes to train a DNN acoustic model. 
