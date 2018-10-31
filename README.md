@@ -218,9 +218,10 @@ I used one of Kaldi's standard recipes to train a DNN acoustic model.
  During the acoustic model training, lexicon(`dict/`) and language models (`lang/`) were generated on the tedlium corpus. (You can try decoding with it but it will likely transcribe the audio poorly). So this is how you can combine your own lexical and language model.
  
  ```
+ #!/bin/bash
  exp=$mykaldi/egs/tedlium/s5/exp/tri3
  utils/prepare_lang.sh dict "<unk>" lang lang
- preprocess/format_lm.sh lang lang/text.txt.lm.gz dict/lexicon.txt lang
+ format_lm.sh lang lang/text.txt.lm.gz dict/lexicon.txt lang
  utils/mkgraph.sh lang $exp $exp/graph_fhs_PT
  ```
 
@@ -228,10 +229,12 @@ I used one of Kaldi's standard recipes to train a DNN acoustic model.
 Decode audio utilizing the filterbank features and graph that contains lexicon, language model, and acoustic model combined.
 
 ```
+#!/bin/bash
 nj=4 # number of jobs/cpus
 data=data-fbank/test
 tedliumDir=$mykaldi/egs/tedlium/s5
 dir=$tedliumDir/exp/dnn4d-fbank_pretrain-dbn_dnn_smbr
+
 steps/nnet/decode.sh --nj $nj \
         --cmd "run.pl" \
         --config conf/decode_dnn.config \
@@ -240,7 +243,7 @@ steps/nnet/decode.sh --nj $nj \
 ```
 The results of the decoding will be deposited in `$dir/decode_test-fhs_it4`.
 
-NOTE: I was decoding 30 minute long segments. I would suggest splitting your audio (to a few minutes long...?) with 5 second overlap at the beginning/end of each segment. The decoder isn't meant to work/tested with such long segments.
+NOTE: I was decoding 20 minute long segments. I would suggest splitting your audio (to a few minutes long...?) with 5 second overlap at the beginning/end of each segment. The decoder isn't meant to work (or was tested) with such long segments.
 
 ## 8. Evaluate results
 The text will be decoded like this:
