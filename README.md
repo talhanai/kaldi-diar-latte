@@ -27,7 +27,7 @@ ngram-count -text text.txt -lm text.txt.lm.gz -kndiscount
 
 ## 4. Build your own lexicon.
 
-Start with your list of words:
+Start with your list of words (the same words that is in your `text.txt` used in your language model):
 ```
 achilles
 acid
