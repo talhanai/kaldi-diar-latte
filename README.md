@@ -163,6 +163,7 @@ Extract your list of words (the same words that is in your `train.txt` used in y
 ```
 $> sed 's/ /\/g train.txt | sed '/^$/d' | sort | uniq > vocab.txt # prints your vocabulary to file
 $> cat vocab.txt # take a look at the list of words
+
 achilles
 acid
 acknowledge
@@ -306,7 +307,6 @@ $> dir=$mykaldi/egs/tedlium/s5/exp/dnn4d-fbank_pretrain-dbn_dnn_smbr/decode_test
 $> grep "Total Error"  $dir/decode_test-fhs_PT_it4/score_10_0.0/ctm.filt.filt.dtl
 
 Percent Total Error       =   68.7%   (288016)
-
 ```
 
 In order to evaluate the **Diarization Error Rate (DER)** you will need to convert the `ctm` file into an `rttm` format. This is an example.
