@@ -22,13 +22,15 @@ You might want to utilize your own text to build a language model (i.e. pattern 
 - Run the following command to generate your language model that kaldi can later use in its decoder (it is a tri-gram model with Knesser-Ney discounting).
 
 ```
-ngram-count -text text.txt -lm text.txt.lm.gz -kndiscount
+$> ngram-count -text text.txt -lm text.txt.lm.gz -kndiscount
 ```
 
 ## 4. Build your own lexicon.
 
 Start with your list of words (the same words that is in your `text.txt` used in your language model):
 ```
+$> sed 's/ /\/g text.txt | sed '/^$/d' | sort | uniq > vocab.txt
+$> cat vocab.txt
 achilles
 acid
 acknowledge
