@@ -115,7 +115,7 @@ This all assumes you know who said what in advance. This allows for the language
 
 ## 4. Build your own lexicon.
 
-1. Extract your list of words (the same words that is in your `text.txt` used in your language model):
+1. Extract your list of words (the same words that is in your `text.txt` used in your language model).
 ```
 $> sed 's/ /\/g text.txt | sed '/^$/d' | sort | uniq > vocab.txt # prints your vocabulary to file
 $> cat vocab.txt # take a look at the list of words
@@ -141,6 +141,17 @@ abducted AH B D AH K T IH D
 NOTE: Make sure the list of words match what is contained in the text of the language model, otherwise Kaldi will complain when it combines the data. It can't understand that there are words in the language model that don't have pronunciations.
 
 NOTE2: The lextool will append numbers to words with multiple pronunications (`hello HH EH L OW; hello(1) HH AH L OW`), remove the number(s) `(1)` because it will not match the word(s) in your language model causing problems for kaldi to compile the information. It will look like this: `hello HH EH L OW; hello HH AH L OW`
+
+You will need to append speaker tags to the words, so that it matches the vocabulary in your language model (or you could try and generate the lexicon with the speaker tags on the words, but make sure the _pronunciation_ does not include the speaker tags).
+
+```
+abduct_P AE B D AH K T
+abduct_T AE B D AH K T
+abducted_P AE B D AH K T IH D
+abducted_T AE B D AH K T IH D
+abducted_P AH B D AH K T IH D
+abducted_T AH B D AH K T IH D
+```
 
 Now you will need to build your other lexicon related files and store them in a `dict/` directory. `dict/` will contain the files that define what the phonetic units are in the language and the relationships between them. These files are: `extra_questions.txt`, `nonsilence_phones.txt`, `optional_silence.txt`, `silence_phones.txt` which is contained in this repo (and match the entries of the TEDLIUM s5/ kaldi setep). You will need to add `lexicon.txt` to the `dict/` directory. `lexiconp.txt` will be generated automatically (and contains a weighted lexicon which you don't have to worry about).
 
