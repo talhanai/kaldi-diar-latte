@@ -284,7 +284,7 @@ SPEAKER SID-0001 1 0012.00 003.00 <NA> <NA> SID-0001-T <NA>
 
 Then run the following tool to evaluate DER.
 ```
-md-eval-v21.pl -m -afc -c 0.25 -r <(cat reference.rttm) -s <(cat hypothesis.rttm)
+perl md-eval-v21.pl -m -afc -c 0.25 -r reference.rttm -s hypothesis.rttm
 ```
 
 
