@@ -62,3 +62,16 @@ I used one of Kaldi's standard recipes to train a DNN acoustic model.
 - Specifically: https://github.com/kaldi-asr/kaldi/tree/master/egs/tedlium/s5
 - Make sure to run `run.sh` all the way upto and including `local/nnet/run_dnn.sh`
 - NOTE: My experiments were with audio sampled at 8,000Hz, the tedlium corpus files are 16,000Hz so I downsampled them first before building the acoustic model (with `run.sh`).
+
+## Reference
+https://groups.csail.mit.edu/sls/publications/2018/Alhanai_NAACL18.pdf
+```
+@inproceedings{al2018role,
+  title={Role-specific Language Models for Processing Recorded Neuropsychological Exams},
+  author={Al Hanai, Tuka and Au, Rhoda and Glass, James},
+  booktitle={Proceedings of the 2018 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 2 (Short Papers)},
+  volume={2},
+  pages={746--752},
+  year={2018}
+}
+```
