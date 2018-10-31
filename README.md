@@ -16,9 +16,9 @@ steps/make_fbank_pitch.sh --nj $nj --cmd "run.pl" $data $data/log $data/data || 
 steps/compute_cmvn_stats.sh $data $data/log $data/data || exit 1;
 ```
 
-The **$test** directory will containing the files `wav.scp`, `text`, `utt2spk`, and `spk2utt` that you must generate in a (kaldi pre-defined) format. Details on these files can be [found here](http://kaldi-asr.org/doc/data_prep.html). They should look like this:
+The `data-fbank/test` directory will containing the files `wav.scp`, `text`, `utt2spk`, and `spk2utt` that you must generate in a (kaldi pre-defined) format. Details on these files can be [found here](http://kaldi-asr.org/doc/data_prep.html). They should look like this:
 ```
-$> head *
+$ data-fbank/test > head *
 
 ==> spk2utt <==
 SID-0001 SID-0001
@@ -45,7 +45,7 @@ SID-0003 DVR_226ABCDEF_DATEXY_TID3.wav
 Once you generate features using the `steps/make_fbank_pitch.sh` and `steps/compute_cmvn_stats.sh` you will have the following files in `data-fbank/test`: `feats.scp` and `cmvn.scp`. These files are pointers to the location of the features (`*.ark` files)
 
 ```
-$> head *
+$ data-fbank/test > head *
 
 ==> cmvn.scp <==
 SID-0001 data-fbank/test/data/cmvn_test7501.ark:9
