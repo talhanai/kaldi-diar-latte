@@ -2,7 +2,7 @@
 This repo lists steps to perform diarization of audio with the kaldi toolkit. Diarization (who-spoken-when) is performed by decoding audio and generating transcriptions (speech-to-text). The transcriptions contain information on who was hypothesized (most likely) to be speaking. 
 
 ## 1. Install Kaldi toollkit 
-From here: (http://kaldi-asr.org/)
+From here: http://kaldi-asr.org/
 
 ## 2. Extract features
 Extract 40-mel filterbank (+ 3 pitch) features from audio, and normalize (CMVN - cepstral mean variance normalize).
@@ -55,6 +55,14 @@ zoom
   ```
 
 - Generate pronunciations from this tool: http://www.speech.cs.cmu.edu/tools/lextool.html
+
+The results will look something like this:
+```
+       abduct AE B D AH K T
+       abducted AE B D AH K T IH D
+       abducted AH B D AH K T IH D
+```
+
 - Make sure the list of words match what is contained in the text of the language model, otherwise Kaldi will complain when it combines the data. It can't understand that there are words in the language model that don't have pronunciations.
 
 ## 6. Build your own acoustic model.
