@@ -73,7 +73,7 @@ Decode audio utilizing the filterbank features and graph that contains lexicon, 
 ```
 nj=4 # number of jobs/cpus
 test=data-fbank/test
-tedliumDir=$kaldi/egs/tedlium
+tedliumDir=$kaldi/egs/tedlium/s5
 dir=$tedliumDir/exp/dnn4d-fbank_pretrain-dbn_dnn_smbr
 steps/nnet/decode.sh --nj $nj \
         --cmd "run.pl" \
