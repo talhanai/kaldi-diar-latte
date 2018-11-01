@@ -1,0 +1,8 @@
+command sbatch --export=PATH --ntasks-per-node=30 --partition=520
+option time=* --time=$0
+option mem=* --mem-per-cpu=$0
+option mem=0          # Do not add anything to qsub_opts
+option num_threads=* --cpus-per-task=$0
+option num_threads=1 --cpus-per-task=1  # Do not add anything to qsub_opts
+option max_jobs_run=*     # Do nothing
+# default gpu=0
