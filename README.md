@@ -22,6 +22,7 @@ data=data-fbank/test
 steps/make_fbank_pitch.sh --nj $nj --cmd "run.pl" $data $data/log $data/data || exit 1;
 steps/compute_cmvn_stats.sh $data $data/log $data/data || exit 1;
 ```
+- `conf/fbank.conf` and `conf/pitch.conf` are probably needed and are included in this repo.
 
 The `data-fbank/test` directory will contain the files: 
 - `wav.scp` 
