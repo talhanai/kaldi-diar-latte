@@ -245,7 +245,7 @@ steps/nnet/decode.sh --nj $nj \
         $tedliumDir/exp/tri3/graph_fhs_PT $data $dir/decode_test-fhs_PT_it4 || exit 1
 ```
  - `conf/decode_dnn.config` is included in this repo.
- - `$dir/decode_test-fhs_it4` is where the results of the decoding will be deposited in.
+ - `$dir/decode_test-fhs_it4` is where the results of the decoding will be deposited in and should be in the same directory as your acoustic model, since kaldi will assume relevant files are one directory above in `$dir`.
 
 NOTE: I was decoding 20 minute long segments. I would suggest splitting your audio (to a few minutes long...?) with 5 second overlap at the beginning/end of each segment. The decoder isn't meant to work (or was tested) with such long segments.
 
